@@ -9,6 +9,7 @@
     "dev": "nest start --watch",
     "build": "nest build",
     "start:prod": "node dist/main",
+    "typecheck": "tsc --noEmit",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push"
   },
