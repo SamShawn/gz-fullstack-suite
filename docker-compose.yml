@@ -1,8 +1,9 @@
 version: '3.8'
+
 services:
-  postgres:
+  db:
     image: postgres:15-alpine
-    container_name: gz_pg
+    container_name: gz_db
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
@@ -11,13 +12,53 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d gz_suite"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7-alpine
     container_name: gz_redis
     ports:
       - "6379:6379"
-    command: redis-server --appendonly yes
+
+  server-data:
+    build: ./apps/server-data
+    container_name: gz_server_data
+    ports:
+      - "8000:8000"
+
+  server-core:
+    build: ./apps/server-core
+    container_name: gz_server_core
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://admin:admin123@db:5432/gz_suite?schema=public
+      - JWT_SECRET=super-secret-key-for-gz-fullstack-suite
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  web-ai-ticket:
+    build: ./apps/web-ai-ticket
+    container_name: gz_web_ai_ticket
+    ports:
+      - "3001:3001"
+    depends_on:
+      - server-core
+
+  web-bigdata:
+    build: ./apps/web-bigdata
+    container_name: gz_web_bigdata
+    ports:
+      - "8080:80"
+    depends_on:
+      - server-core
 
 volumes:
   pgdata:
