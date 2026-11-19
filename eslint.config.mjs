@@ -1,18 +1,43 @@
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import prettier from 'eslint-config-prettier'
+import pluginReact from 'eslint-plugin-react'
+import pluginReactHooks from 'eslint-plugin-react-hooks'
+import pluginReactRefresh from 'eslint-plugin-react-refresh'
+import pluginNext from '@next/eslint-plugin-next'
 
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
-  prettier, // 放在最后，关闭与 Prettier 冲突的 ESLint 规则
+  prettier,
   {
-    ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.next/**'],
+    ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.next/**', '**/.turbo/**'],
   },
+  // React 项目通用规则
   {
+    files: ['**/*.tsx', '**/*.jsx'],
+    plugins: {
+      react: pluginReact,
+      'react-hooks': pluginReactHooks,
+      'react-refresh': pluginReactRefresh,
+    },
     rules: {
-      '@typescript-eslint/no-explicit-any': 'warn', // 警告而不是报错，方便快速开发
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }], // 忽略以 _ 开头的未使用参数
+      'react/react-in-jsx-scope': 'off', // Next.js / Vite 不需要
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-refresh/only-export-components': 'warn',
+    },
+    settings: {
+      react: { version: 'detect' },
+    },
+  },
+  // Next.js 项目特有规则
+  {
+    files: ['apps/web-ai-ticket/**/*.{ts,tsx}'],
+    plugins: { '@next/next': pluginNext },
+    rules: {
+      ...pluginNext.configs.recommended.rules,
+      ...pluginNext.configs['core-web-vitals'].rules,
     },
   },
 )
