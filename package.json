@@ -5,15 +5,20 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.15.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.7",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.1",
     "prettier": "^3.0.0",
-    "turbo": "^1.10.0"
+    "turbo": "^1.10.0",
+    "typescript-eslint": "^8.72.1"
   },
   "packageManager": "pnpm@8.6.0"
 }
