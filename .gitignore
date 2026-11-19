@@ -18,6 +18,8 @@ Thumbs.db
 node_modules/
 .pnpm-store/
 .pnpm-debug.log*
+package-lock.json
+yarn.lock
 
 # =========================
 # 环境变量与敏感信息
@@ -49,12 +51,43 @@ next-env.d.ts
 *.local
 
 # NestJS 专属
-/dist
 /coverage
 *.tsbuildinfo
+tsconfig.build.tsbuildinfo
+tsconfig.tsbuildinfo
 
-# Prisma 自动生成的 Client (视情况而定，通常建议忽略)
-# apps/server-core/node_modules/.prisma/
+# =========================
+# Python / FastAPI 专属
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
 
 # =========================
 # 日志与调试
@@ -73,7 +106,9 @@ lerna-debug.log*
 coverage/
 .nyc_output/
 
+# =========================
 # AI Tools
+# =========================
 .agents/
 .claude/
 .cursor/
