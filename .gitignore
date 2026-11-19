@@ -1,0 +1,80 @@
+# =========================
+# 系统与编辑器文件
+# =========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =========================
+# 包管理器与依赖 (核心)
+# =========================
+node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+
+# =========================
+# 环境变量与敏感信息
+# =========================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+
+# =========================
+# 构建产物与缓存
+# =========================
+# 通用构建输出
+dist/
+build/
+out/
+.turbo/
+
+# Next.js 专属
+.next/
+next-env.d.ts
+.vercel/
+
+# Vite / React 专属
+.vite/
+*.local
+
+# NestJS 专属
+/dist
+/coverage
+*.tsbuildinfo
+
+# Prisma 自动生成的 Client (视情况而定，通常建议忽略)
+# apps/server-core/node_modules/.prisma/
+
+# =========================
+# 日志与调试
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# =========================
+# 测试与覆盖率
+# =========================
+coverage/
+.nyc_output/
+
+# AI Tools
+.agents/
+.claude/
+.cursor/
+.devin/
